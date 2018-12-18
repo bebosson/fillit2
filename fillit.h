@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/18 18:40:08 by artderva         ###   ########.fr       */
+/*   Updated: 2018/12/18 21:12:08 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct		s_tet
 	struct s_tet	*next;
 }					t_tet;
 
-
-
+t_tet	*fix_coor(char **pcs);
+t_tet	*fix_coor2(char **pcs);
+void	ft_display_maill(t_tet *bb);
+void	ft_display_lst(t_tet *lst);
 #endif
