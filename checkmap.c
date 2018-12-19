@@ -27,7 +27,7 @@ int 	ft_check_line(char *line, int i)
 			line++;
 		}
 	}
-	return (1);
+	return (line);
 }
 
 int main()
