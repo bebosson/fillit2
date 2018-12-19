@@ -30,7 +30,7 @@ int 	ft_check_line(char *line, int i)
 	return (line);
 }
 
-int main()
+/*int main()
 {
 	char *line = ft_strnew(0);
 	char *file = ft_strnew(0);
@@ -55,4 +55,5 @@ int main()
 	}
 
 	return (1);
-}
+}*/
+

@@ -58,7 +58,7 @@ t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra)
 		while (x < 4)
 		{
 			if (pcs[y_tetra][x] == '#' && nbr_pcs == 0)
-				set_tetra_pos(bb, x, y, ymax, 0);
+				set_tetra_pos(bb, x, y_tetra, ymax, 0);
 			else if (pcs[y_tetra][x] == '#' && nbr_pcs < 4)
 			{
 				set_tetra_pos(bb, x, y, ymax, nbr_pcs);

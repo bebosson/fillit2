@@ -1,34 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/18 20:07:26 by bebosson          #+#    #+#             */
-/*   Updated: 2018/12/18 21:27:05 by bebosson         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #include "fillit.h"
 
-int main(int ac, char **av)
+int main()
 {
 	char *line;
-	char **pot;
+	char **pos;
 	int i = 0;
-	int fd = open(av[1], O_RDONLY);
+	pos = malloc(44300);
 	t_tet **lst;
 	t_tet *new;
-	pot = malloc(92000);
-	while (get_next_line(fd, &line) > 0)
+	int fd = open("test1", O_RDONLY);
+	int ret;
+	while (ret = get_next_line(fd, &line) > 0)
 	{
-		pot[i] = ft_strdup(line);
+		if (!ft_check_line(line ,i))
+		{
+			ft_putendl("pb de checkline;");
+			return (0);
+		}
+		pos[i] = ft_strdup(line);
 		i++;
 	}
-	printf("i = %d \n",i);
-	new = fix_coor(pot); //obj : retourner un nouveau maillon (tetra) a chaque retour de fonction
-	// ? mettre dans while ? 
-	// faire pointer lst sur 
-	// faire un display parcourant toute la liste ? 
-	ft_display_maill(new);
+	check_main(i, ret, pos);
+	lst = set_lst_from_file(i, pos);
+	ft_display_lst(lst);
+	i = 0;
+	return (0);
 }

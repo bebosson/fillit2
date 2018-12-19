@@ -108,6 +108,7 @@ char	**agauche(char **p)
 	}
 	return (a);
 }
+
 int check_main(int i, int ret, char **pot)
 {
 	if (!(check_diese(pot)) || !(check_tetra(pot) && !ret && ((i % 5) != 0)))
@@ -119,13 +120,13 @@ int check_main(int i, int ret, char **pot)
 
 }
 
-int main()
+/*int main()
 {
 	char *line;
 	char **pot;
 	int i = 0;
 	pot = malloc(44300);4
-	int nbr_tetras;
+		int nbr_tetras;
 	t_tet **lst;
 	t_tet *new;
 	int fd = oen("test1", O_RDONLY);
@@ -135,7 +136,7 @@ int main()
 		{
 			ft_putendl("pb de checkline;");
 			return (0);
-		}
+			{}
 		pot[i] = ft_strdup(line);
 		i++;
 	}
@@ -145,3 +146,4 @@ int main()
 	i = 0;
 	return (0);
 }
+*/
