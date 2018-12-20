@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/20 01:07:29 by bebosson         ###   ########.fr       */
+/*   Updated: 2018/12/20 02:26:10 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	set_tetra_pos(t_tet *new, int x, int y,  int flag)
 		new->y[0] = 0;
 		new->x_y[0] = x;
 		new->x_y[1] = y;
-		//printf("x = %d, y = %d\n",bb->x_y[0],bb->x_y[1]);
-		//printf("i[%d] = %d, j[%d] = %d\n",nbr_pcs,bb->x[0],nbr_pcs,bb->y[0]);
+//		printf("x = %d, y = %d\n",bb->x_y[0],bb->x_y[1]);
+//		printf("i[%d] = %d, j[%d] = %d\n",nbr_pcs,bb->x[0],nbr_pcs,bb->y[0]);
 	}
 	else if (flag != 0)
 	{
 		new->x[flag] = x - new->x_y[0] ;
 		new->y[flag] = y - new->x_y[1] ;
-		//printf("x = %d, y = %d\n",x,y);
-		//printf("i[%d] = %d, j[%d] = %d\n",nbr_pcs,bb->x[nbr_pcs],nbr_pcs,bb->y[nbr_pcs]);
+//		printf("x = %d, y = %d\n",x,y);
+//		printf("i[%d] = %d, j[%d] = %d\n",nbr_pcs,bb->x[nbr_pcs],nbr_pcs,bb->y[nbr_pcs]);
 	}
 
 }
@@ -107,15 +107,14 @@ void		ft_display_lst(t_tet *lst)
 	}
 }
 
-t_tet		*set_lst_from_file(int *i, char **pos)
+t_tet		*set_lst_from_file(int ligne, char **pos)
 {
 	int nbr_tetr;
 	t_tet *new;
 	t_tet *lst;
-	int ligne;
-
+	
 	nbr_tetr = 0;
-	ligne = *i;
+	printf("ligne = %d", ligne);
 	if (!(lst = (t_tet*)malloc(sizeof(t_tet))))
 	{
 		ft_putendl("malloc echoue");
