@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 16:53:17 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/17 17:34:54 by artderva         ###   ########.fr       */
+/*   Updated: 2018/12/20 01:08:55 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int 	ft_check_line(char *line, int i)
 			line++;
 		}
 	}
-	return (line);
+	return (i);
 }
 
 /*int main()

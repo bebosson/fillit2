@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 17:46:12 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/18 17:27:57 by artderva         ###   ########.fr       */
+/*   Updated: 2018/12/20 00:32:59 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	**agauche(char **p)
 	return (a);
 }
 
-int check_main(int i, int ret, char **pot)
+int check_read(int i, int ret, char **pot)
 {
 	if (!(check_diese(pot)) || !(check_tetra(pot) && !ret && ((i % 5) != 0)))
 	{

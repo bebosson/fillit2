@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/18 21:12:08 by bebosson         ###   ########.fr       */
+/*   Updated: 2018/12/20 01:04:24 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ typedef struct		s_tet
 	char			letter;
 	struct s_tet	*next;
 }					t_tet;
-void	set_tetra_pos(t_tet *new, char **pos, int x, int y, int flag);
+void	set_tetra_pos(t_tet *next, int x, int y, int flag);
 int	ft_check_line(char *line, int i); // return nbr de line ? -> nbr de tetras 
 int	check_diese(char **pcs);
-int	check_tetra(char **new);
+int	check_tetra(char **pos);
 t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra);
+int		check_read(int i,int ret,char **pos);
+char	**read_main(int *ret, int *i);
 ///t_tet	*fix_coor2(char **pcs);
-t_tet	**set_lst_from_file(int i, char **pos);
+t_tet	*set_lst_from_file(int *i, char **pos);
 void	ft_display_maill(t_tet *bb);
 void	ft_display_lst(t_tet *lst);
 #endif
