@@ -9,8 +9,8 @@ int		read_main(char ***pos)
 	int ret;
 
 	i = 0;
-	fd = open("testounet", O_RDONLY);
-	printf("%d\n",i);
+	fd = open("test4", O_RDONLY);
+//	printf("%d\n",i);
 	while (((ret = get_next_line(fd, &line)) > 0))
 	{
 		if (!(ft_check_line(line ,i + 1)))
@@ -38,10 +38,10 @@ int main()
 	t_tet *lst;
 	int ret = 0;
 
-	printf("ret = %d \n i = %d \n",ret,i);
+//	printf("ret = %d \n i = %d \n",ret,i);
 	i = read_main(&pos);
-	printf("ret = %d \n i = %d \n",ret,i);
+//	printf("ret = %d \n i = %d \n",ret,i);
 	lst = set_lst_from_file(i, pos);
-//	ft_display_lst(lst);
+//	ft_display_lst(lst);// objectif? au il fonctionne
 	return (0);
 }

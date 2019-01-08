@@ -6,20 +6,22 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 21:19:13 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/20 04:51:36 by artderva         ###   ########.fr       */
+/*   Updated: 2019/01/04 19:35:38 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	ft_pwt(char **tab)
+void	ft_pwt(char **tab, char letter)
 {
 	int i;
 	int j;
 
 	i = -1;
 	while (tab[++i])
+	{
 		ft_putendl(tab[i]);
+	}
 }
 
 t_bis *initlist(char **pot)
@@ -93,7 +95,7 @@ void	printlist(t_bis *lst)
 	{
 		ft_putchar(tmp->letter);
 		ft_putchar('\n');
-		ft_pwt(tmp->pcs);
+		ft_pwt(tmp->pcs, tmp->letter);
 		tmp = tmp->next;
 	}
 }

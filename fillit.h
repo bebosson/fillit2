@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/20 04:14:50 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/08 23:18:42 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
 
 typedef struct		s_tet
 {
-	int				x[4];
-	int				y[4];
+	int				coor[3][2];// Ici faire de 2 tab 1 tab : int coor[3][2]
 	int				x_y[2];
 	char			letter;
 	struct s_tet	*next;
 }					t_tet;
 
-void	set_tetra_pos(t_tet **next, int x, int y, int flag);
+int	set_tetra_pos(t_tet **next, int x, int y, int flag);
 int	ft_check_line(char *line, int i); // return nbr de line ? -> nbr de tetras 
 int	check_diese(char **pcs);
 int	check_tetra(char **pos);
@@ -36,5 +35,13 @@ int		read_main(char ***pos);
 t_tet	*set_lst_from_file(int i, char **pos);
 void	ft_display_maill(t_tet *bb);
 void	ft_display_lst(t_tet *lst);
+int		x_max(t_tet *bb);
+int		y_max(t_tet *bb);
+char	**grille_vide(int dim);
+int		move_right_ok(t_tet *bb, int dim);
+void		calcul_from_origin(t_tet **bb, int x_mov, int y_mov);
+void	move_right(t_tet **bb, int dim);
+void	move_down(t_tet **bb, int dim);
+void	printlist(t_tet *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 17:46:12 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/20 03:35:40 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/07 20:23:16 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		check_tetra(char **new)
 
 int check_read(int i, int ret, char ***pot)
 {
-	ft_putendl("tu rentres la?");
+//	ft_putendl("tu rentres la?");
 	if (!(check_diese(*pot)) && !(check_tetra(*pot)) && !ret && ((i % 5) != 0))
 	{
 		ft_putendl("tetras non valide mgl");

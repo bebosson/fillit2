@@ -6,13 +6,13 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2018/12/20 05:02:19 by artderva         ###   ########.fr       */
+/*   Updated: 2018/12/20 20:39:23 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 
