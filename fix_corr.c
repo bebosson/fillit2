@@ -15,6 +15,7 @@
 
 int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
 {
+
 	if (flag == 0)  // essayer de faire sans;
 	{
 		(*new)->x_y[0] = x;
@@ -34,19 +35,62 @@ int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
 	return (flag);
 }
 
-
-t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra)
+t_tet	*add_to_lst(char **pcs, int ligne, int nbr_tetra, t_tet *lst)
 {
 	int x;
 	int	y_tetra;
 	int v_y_max;
-	t_tet	*new;
+	t_tet	*maillon;
 	int nbr_pcs;
 
 	nbr_pcs = 0;
 	y_tetra = (nbr_tetra > 0) ? 5 * nbr_tetra  : 0;
 	v_y_max = y_tetra + 4;
-	if (!(new =(t_tet*)malloc(sizeof(t_tet))))
+	printf("tu rentres la coco?\n");
+//	if (!(maillon =(t_tet*)malloc(sizeof(t_tet))))
+//		return (NULL);
+	if (!(maillon =(t_tet*)malloc(10000000)))
+		return (NULL);
+	
+//	maillon->coor = malloc(sizeof(int *) * 5);
+	maillon->next = NULL;
+	printf("tu rentres la coco?\n");
+	while (y_tetra < v_y_max)
+	{
+		x = -1;
+		while (++x < 4)
+			if (pcs[y_tetra][x] == '#' && nbr_pcs == 0)
+				nbr_pcs = set_tetra_pos(&maillon, x, y_tetra, 0);
+			else if (pcs[y_tetra][x] == '#' && nbr_pcs != 0)
+				nbr_pcs = set_tetra_pos(&maillon, x, y_tetra, nbr_pcs);
+		y_tetra++;
+	}
+	ft_display_maill(maillon);
+	if (lst == NULL)
+		return (maillon);
+	else
+	{
+		while (lst->next != NULL)
+			lst = lst->next;
+		maillon->letter = 'B' + (char)nbr_tetra;
+		lst->next = maillon;
+		return (lst);
+	}
+}
+
+
+t_tet	*init_lst(char **pcs, int ligne, int nbr_tetra) //init_lst
+{
+	int x;
+	int	y_tetra;
+	int v_y_max;
+	t_tet	*lst;
+	int nbr_pcs;
+
+	nbr_pcs = 0;
+	y_tetra = (nbr_tetra > 0) ? 5 * nbr_tetra  : 0;
+	v_y_max = y_tetra + 4;
+	if (!(lst =(t_tet*)malloc(sizeof(t_tet))))
 		return (NULL);
 	//if (y_tetra >= ligne)
 	//	ft_putendl("ERROR");
@@ -55,12 +99,17 @@ t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra)
 		x = -1;
 		while (++x < 4)
 			if (pcs[y_tetra][x] == '#' && nbr_pcs == 0)
-				nbr_pcs = set_tetra_pos(&new, x, y_tetra, 0);
+				nbr_pcs = set_tetra_pos(&lst, x, y_tetra, 0);
 			else if (pcs[y_tetra][x] == '#' && nbr_pcs != 0)
-				nbr_pcs = set_tetra_pos(&new, x, y_tetra, nbr_pcs);
+				nbr_pcs = set_tetra_pos(&lst, x, y_tetra, nbr_pcs);
 		y_tetra++;
 	}
-	new->next = NULL;
+	lst->letter = 'A';
+	lst->next = NULL;
+	return (lst);
+}
+
+
 /*	ft_putendl("----avant----");
 	ft_display_maill(new);
 	move_down(&new,3); CA CA MARCHE !! MOUVEMENT DES PIECES
@@ -70,13 +119,10 @@ t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra)
 						OBJECTIF MAINTENANT:
 				EN FAIRE UNE LISTE ET L AFFICHER EN DEHORS DE CETTE FONCTION
 */
-	return (new);
-}
 
 t_tet		*set_lst_from_file(int ligne, char **pos)
 {
 	int nbr_tetr;
-	t_tet *new;
 	t_tet *lst;
 
 	nbr_tetr = 0;
@@ -86,16 +132,17 @@ t_tet		*set_lst_from_file(int ligne, char **pos)
 		ft_putendl("malloc echoue");
 		return(NULL);
 	}
+	printf("tu rentres la ?\n");
 	while (nbr_tetr < ligne / 5)
 	{
-		if (!(new = fix_coor(pos, ligne, nbr_tetr)))
-		{
-			ft_putendl("malloc echoue");
-			return(NULL);
-		}
-		ft_display_maill(new);
-		lst->next = new;
-		free(new);
+
+		printf("tu rentres la ?\n");
+		if (nbr_tetr == 0)
+			lst = init_lst(pos, ligne, nbr_tetr);
+		else
+			add_to_lst(pos, ligne, nbr_tetr, lst);
+		ft_display_maill(lst);
+		free(pos);
 		nbr_tetr++;
 //		if nbr_tetr = 0;
 //			init_lst(char ** ..);

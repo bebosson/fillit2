@@ -24,6 +24,7 @@ void		ft_display_maill(t_tet *bb)
 	printf("o_x = %d \n",bb->x_y[0]);
 
 	printf("o_y = %d \n",bb->x_y[1]);
+	printf("letter = %c\n",bb->letter);
 	while (++i < 3)
 	{
 		printf("x = %d || ",bb->coor[i][0]);

@@ -43,5 +43,6 @@ void		calcul_from_origin(t_tet **bb, int x_mov, int y_mov);
 void	move_right(t_tet **bb, int dim);
 void	move_down(t_tet **bb, int dim);
 void	printlist(t_tet *lst);
-
+t_tet	*init_lst(char **pcs, int ligne, int nbr_tetra);
+t_tet	*add_to_lst(char **pcs, int ligne, int nbr_tetra, t_tet *lst);
 #endif
