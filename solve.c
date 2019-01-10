@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:42:59 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/10 06:39:45 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/10 21:40:38 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,37 @@ char	**grille_vide(int dim)
 	return (pot);
 }
 
-char	**ass_first_maill(t_tet *new, int dim, char ***tab)
+char	**put_next_maill(t_tet *new, int dim, char ***tab)
+{
+	int x;
+	int y;
+	int nb_t;
+
+	nb_t = 0;
+	y = -1;
+	ft_putendl("--------------");
+	ft_display_maill(new,3);
+	while(++y < dim + 1)
+	{
+		x = -1;
+		while (++x < dim + 1)
+		{
+			if ((new->x_y[0] == x  && new->x_y[1] == y) && nb_t == 0 && (*tab)[y][x] == '.')
+			{
+				(*tab)[y][x] = '#';
+				nb_t++;
+			}
+			else if ((new->coor[nb_t - 1][0] == x  && new->coor[nb_t - 1][1] == y) && nb_t > 0)
+			{
+				(*tab)[y][x] = '#';
+				nb_t++;
+			}
+		}
+	}
+	return (*tab);
+}
+
+char	**remove_last_maill(t_tet *new, int dim, char ***tab)
 {
 	int x;
 	int y;
@@ -50,17 +80,22 @@ char	**ass_first_maill(t_tet *new, int dim, char ***tab)
 		x = -1;
 		while (++x < dim + 1)
 		{
-			if ((new->x_y[0] == x  && new->x_y[1] == y) && nb_t++ == 0 && (*tab)[y][x] == '.')
-				(*tab)[y][x] = '#';
-			else if ((new->coor[nb_t - 1][0] == x  && new->coor[nb_t - 1][1] == y) && (*tab)[y][x] == '.' && nb_t++)
-				(*tab)[y][x] = '#';
-			else
+			if ((new->x_y[0] == x  && new->x_y[1] == y) && nb_t == 0)
+			{
 				(*tab)[y][x] = '.';
+				nb_t++;
+			}
+			else if ((new->coor[nb_t - 1][0] == x  && new->coor[nb_t - 1][1] == y) && nb_t > 0)
+			{
+				(*tab)[y][x] = '.';
+				nb_t++;
+			}
 		}
 	}
-	print_grille(*tab,3);
 	return (*tab);
 }
+
+
 
 int		ft_can_place(t_tet *new, int dim, char ***tab)
 {
