@@ -45,3 +45,4 @@ int main()
 //	ft_display_lst(lst);// objectif? au il fonctionne
 	return (0);
 }
+

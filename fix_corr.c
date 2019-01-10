@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/08 23:38:49 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/10 06:42:09 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,31 +77,55 @@ t_tet		*set_lst_from_file(int ligne, char **pos)
 {
 	int nbr_tetr;
 	t_tet *new;
-	t_tet *lst;
+	t_tet *new2;
+	char **solve;
 
 	nbr_tetr = 0;
 	printf("ligne = %d \n", ligne);
-	if (!(lst = (t_tet*)malloc(sizeof(t_tet))))
+/*	if (!(lst = (t_tet*)malloc(sizeof(t_tet))))
 	{
 		ft_putendl("malloc echoue");
 		return(NULL);
 	}
 	while (nbr_tetr < ligne / 5)
 	{
-		if (!(new = fix_coor(pos, ligne, nbr_tetr)))
+*/		if (!(new = fix_coor(pos, ligne, nbr_tetr)))
 		{
 			ft_putendl("malloc echoue");
 			return(NULL);
 		}
-		ft_display_maill(new);
-		lst->next = new;
-		free(new);
+		nbr_tetr++;
+		if (!(new2 = fix_coor(pos, ligne, 1)))
+		{
+			ft_putendl("malloc echoue");
+			return(NULL);
+		}
+
+		solve = grille_vide(3);
+		print_grille(solve,3);
+//		solve = ass_first_maill(new,3,&solve);
+//		print_grille_from_pcs(new2,3);
+		ft_display_maill(new,3);
+		solve = ass_first_maill(new,3,&solve);
+		print_grille(solve,3);
+
+		ft_display_maill(new,3);
+		move_right(&new,3);
+		ft_display_maill(new,3);
+		print_grille_from_pcs(new2,3);
+		solve = ass_first_maill(new,3,&solve);
+		print_grille(solve,3);
+
+		printf("%d\n",ft_can_place(new,3,&solve));
+//		solve = ass_first_maill(new2,3,&solve);
+		//		lst->next = new;
+//		free(new);
 		nbr_tetr++;
 //		if nbr_tetr = 0;
 //			init_lst(char ** ..);
 //		else if nbr_tetr > 0
 //			add_to_lst(char **, t_bis list)
-	}
+//	}
 //	printlist(lst);
-	return (lst);
+	return (new);
 }
