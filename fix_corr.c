@@ -190,31 +190,47 @@ t_tet		*set_lst_from_file(int ligne, char **pos)
 		}
 
 		solve = grille_vide(3);
-		print_grille(solve,3);
+//		print_grille(solve,3);
 //		solve = ass_first_maill(new,3,&solve);
 //		print_grille_from_pcs(new2,3);
-		ft_display_maill(new,3);
+//		ft_display_maill(new,3);
 		solve = put_next_maill(new,3,&solve);
 		print_grille(solve,3);
+		
+		calcul_from_origin(&new,1,0);
+		calcul_from_origin(&new,1,0);
+		
+		printf("yo ?? %d\n",ft_can_place(new,3,&solve));
+		printf("move R ?%d\n",move_down_dim_ok(new,3));
 
-		ft_display_maill(new,3);
-//		move_right(&new,3);
-		print_grille_from_pcs(new,3);
-/*		while (move_right_dim_ok(bb, dim) == 1)
+		while ( ft_can_place(new,3,&solve) != 1 && move_down_dim_ok(new,3) == 1)	
 		{
-			printf("move_r? = %d\n",move_right(new,3,solve));
-			
+			while (ft_can_place(new,3,&solve) != 1 && move_right_dim_ok(new,3) == 1)
+			{
+				calcul_from_origin(&new,1,0);
+				printf("can do ?%d\n",ft_can_place(new,3,&solve));
+			}
+				
+				printf("can do ?%d\n",ft_can_place(new,3,&solve));
+				if (ft_can_place(new,3,&solve) == 1 )	
+					break ;
+				else
+					calcul_from_origin(&new,-(new)->x_y[0],1);	
 		}
-*/
-		ft_display_maill(new,3);
 		printf("allo?\n");
-		print_grille_from_pcs(new2,3);
-		solve = put_next_maill(new2,3,&solve);
-		calcul_from_origin(&new,1,0);
-		calcul_from_origin(&new,1,0);
-		ft_display_maill(new,3);
+//		ft_display_maill(new,3);
+//		move_right(&new,3);
+//		print_grille_from_pcs(new,3);
+
 		print_grille(solve,3);
-		printf("%d\n",ft_can_place(new,3,&solve));
+		ft_display_maill(new,3);
+		print_grille_from_pcs(new2,3);
+//		solve = put_next_maill(new2,3,&solve);
+//		calcul_from_origin(&new,1,0);
+//		calcul_from_origin(&new,1,0);
+//		ft_display_maill(new,3);
+		print_grille(solve,3);
+//		printf("%d\n",ft_can_place(new,3,&solve));
 //		solve = ass_first_maill(new2,3,&solve);
 		//		lst->next = new;
 //		free(new);

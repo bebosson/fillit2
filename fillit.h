@@ -39,6 +39,7 @@ int		x_max(t_tet *bb);
 int		y_max(t_tet *bb);
 char	**grille_vide(int dim);
 int		move_right_dim_ok(t_tet *bb, int dim);
+int		move_down_dim_ok(t_tet *bb, int dim);
 void		calcul_from_origin(t_tet **bb, int x_mov, int y_mov);
 int		move_right(t_tet *bb, int dim, char **grille);
 int		move_down(t_tet **bb, int dim, char **grille);

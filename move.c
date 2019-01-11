@@ -55,12 +55,13 @@ int		move_down_dim_ok(t_tet *bb, int dim)
 //
 int		move_right(t_tet *bb, int dim, char **grille)
 {
+	// Faire une fonction qui copie et malloc le maillon pour le supprimer si le mouvement et valider 
 
 	printf("move_right_dim_ok %d \n", move_right_dim_ok(bb,dim));
-	if (move_right_dim_ok(bb,dim))
+	while (move_right_dim_ok(bb,dim) != 1 && ft_can_place(bb,dim,&grille) != 1)
 		calcul_from_origin(&bb,1,0);
-	else
-		return (0);
+//	else
+//		return (0);
 	printf("ft_can_place  %d \n", ft_can_place(bb,dim,&grille));
 	if (ft_can_place(bb,dim,&grille))
 	{
