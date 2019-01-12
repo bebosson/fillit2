@@ -32,7 +32,8 @@ void		ft_display_maill(t_tet *bb, int dim)
 	}
 	print_grille_from_pcs(bb, dim);
 }
-/*void	printlist(t_tet *lst, int dim)
+
+void	printlist(t_tet *lst, int dim)
 {
 	t_tet *tmp;
 
@@ -42,14 +43,13 @@ void		ft_display_maill(t_tet *bb, int dim)
 		ft_putendl("rate frero");
 		return ;
 	}
-	while (tmp->next != NULL)
+	while (lst)
 	{
-		//ft_putchar(tmp->letter);
 		ft_display_maill(tmp->next, dim);
 		tmp = tmp->next;
 	}
 }
-*/
+
 void	print_grille(char	**pot, int dim)
 {
 	int i = 0;

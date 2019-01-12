@@ -52,13 +52,13 @@ char	**put_next_maill(t_tet *new, int dim, char ***tab)
 		while (++x < dim + 1)
 		{
 			if ((new->x_y[0] == x  && new->x_y[1] == y)
-			&& nb_t == 0 && (*tab)[y][x] == '.')
+					&& nb_t == 0 && (*tab)[y][x] == '.')
 			{
 				(*tab)[y][x] = '#';
 				nb_t++;
 			}
 			else if ((new->coor[nb_t - 1][0] == x 
-			&& new->coor[nb_t - 1][1] == y) && nb_t > 0)
+						&& new->coor[nb_t - 1][1] == y) && nb_t > 0)
 			{
 				(*tab)[y][x] = '#';
 				nb_t++;
@@ -99,7 +99,7 @@ char	**remove_last_maill(t_tet *new, int dim, char ***tab)
 
 
 
-int		ft_can_place(t_tet *new, int dim, char ***tab)
+int		ft_can_place(t_tet *new, int dim, char **tab)
 {
 	int x;
 	int y;
@@ -107,39 +107,57 @@ int		ft_can_place(t_tet *new, int dim, char ***tab)
 
 	nb_t = 0;
 	x = -1;
-	if ((*tab)[new->x_y[1]][new->x_y[0]] == '#')
+	if (tab[new->x_y[1]][new->x_y[0]] == '#')
 		return (0);
 	while (++x < 3)
 	{
-		if ((*tab)[new->coor[x][1]][new->coor[x][0]]  == '#')
+		if (tab[new->coor[x][1]][new->coor[x][0]]  == '#')
 			return (0);
 	}
 	return (1);
 
 }
-/*
-   int		ft_solve(t_tet **new, int dim, char ***tab)
-   {
-//ICI on place les pieces 
-//si on arrive a placer (return 1) => on continu
-//des qu on peut pas return 0
-Move right jusqu a atteindre le bord 
- * Move down
- * Move r .......................*/
-/* Move down etc
- * Si impossible deplacer la piece precedente*/
-/* ----------SI TOUJOURS IMPOSSIBLE APRES LE DEPLACEMENT-------------*/
-/*                       Augmenter taille                           
 
-			 if (ft_can_place())
-			 {
-			 ass_first_maill();
-			 if(ft_solve(dim +1))
- *		return (1)
+void		ft_solve(t_tet **new, int dim, char **solve)
+{
 
- }
- return (0);
- }*/
+	while (ft_can_place(new,dim,solve) != 1 && move_down_dim_ok(new,3) == 1)	
+	{
+		while (ft_can_place(new,dim,solve) != 1 && move_right_dim_ok(*new,dim) == 1)
+		{
+			calcul_from_origin(new,1,0);
+			printf("can do ?%d\n",ft_can_place(new,3,solve));
+		}
+
+
+
+		if (ft_can_place(new,dim,&solve) == 1 )	
+			break ;
+		else
+			calcul_from_origin(new,-(*new)->x_y[0],1);	
+	}
+}
+
+	//ICI on place les pieces 
+	//si on arrive a placer (return 1) => on continu
+	//des qu on peut pas return 0
+	//Move right jusqu a atteindre le bord 
+	// * Move down
+	// * Move r .......................*/
+	/* Move down etc
+	 * Si impossible deplacer la piece precedente*/
+	/* ----------SI TOUJOURS IMPOSSIBLE APRES LE DEPLACEMENT-------------*/
+	/*                       Augmenter taille                           
+
+				 if (ft_can_place())
+				 {
+				 ass_first_maill();
+				 if(ft_solve(dim +1))
+	 *		return (1)
+
+	 }
+	 return (0);
+	 }*/
 
 
 
