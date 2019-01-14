@@ -118,23 +118,22 @@ int		ft_can_place(t_tet *new, int dim, char **tab)
 
 }
 
-void		ft_solve(t_tet **new, int dim, char **solve)
+void		ft_solve(t_tet *new, int dim, char **solve)
 {
+	t_tet *new2;
 
+	new2 = new;
 	while (ft_can_place(new,dim,solve) != 1 && move_down_dim_ok(new,3) == 1)	
 	{
-		while (ft_can_place(new,dim,solve) != 1 && move_right_dim_ok(*new,dim) == 1)
+		while (ft_can_place(new,dim,solve) != 1 && move_right_dim_ok(new,dim) == 1)
 		{
-			calcul_from_origin(new,1,0);
+			calcul_from_origin(&new,1,0);
 			printf("can do ?%d\n",ft_can_place(new,3,solve));
 		}
-
-
-
-		if (ft_can_place(new,dim,&solve) == 1 )	
+		if (ft_can_place(new,dim,solve) == 1 )
 			break ;
 		else
-			calcul_from_origin(new,-(*new)->x_y[0],1);	
+			calcul_from_origin(&new,-(new->x_y[0]),1);	
 	}
 }
 

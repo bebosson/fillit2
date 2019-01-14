@@ -10,7 +10,8 @@ int		read_main(char ***pos)
 
 	i = 0;
 	fd = open("testounet", O_RDONLY);
-//	printf("%d\n",i);
+
+	printf("tata\n");
 	while (((ret = get_next_line(fd, &line)) > 0))
 	{
 		if (!(ft_check_line(line ,i + 1)))
@@ -27,20 +28,36 @@ int		read_main(char ***pos)
 	return (i);
 
 }
-
-
-int main()
+int		start_solve(t_tet **tab, int ligne)
 {
-	char *line;
-	char **pos;
-	int i = 0;
-	t_tet *lst;
-	int ret = 0;
+	char **solve;
+	int dim;
+	int nbr_tetra;
 
-//	printf("ret = %d \n i = %d \n",ret,i);
-	i = read_main(&pos);
-	set_lst_from_file(i, pos, &lst);
-//	ft_display_lst(lst);// objectif? au il fonctionne
+	nbr_tetra = ligne / 5;
+	dim = 3;
+	solve = grille_vide(dim);
+	printf("tata\n");
+	solve = put_next_maill(tab[0],dim,&solve);
+	print_grille(solve,3);
+	ft_solve(tab[1], dim, solve);
+	print_grille(solve, dim);
+	solve = put_next_maill(tab[1],dim,&solve);
+	print_grille(solve, dim);
 	return (0);
 }
 
+int main()
+{
+	
+	char **pos;
+	t_tet **tab;
+	int ligne = 0;
+	
+	pos = malloc(5550000);
+	ligne = read_main(&pos);
+	tab = set_lst_from_file(ligne, pos);
+	printlist(tab, 3, ligne);
+	start_solve(tab,ligne);
+	return (0);
+}

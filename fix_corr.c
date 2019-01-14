@@ -158,32 +158,25 @@ return (lst);
 	OBJECTIF MAINTENANT:
 	EN FAIRE UNE LISTE ET L AFFICHER EN DEHORS DE CETTE FONCTION
 	*/
-int	set_lst_from_file(int ligne, char **pos, t_tet **lst)
+t_tet	**set_lst_from_file(int ligne, char **pos)
 {
 	int nbr_tetr;
-	t_tet *new;
+	t_tet **tab;
 	
 	nbr_tetr = 0;
-	if (!(*lst = fix_coor(pos, ligne, nbr_tetr)))
-	{
-		ft_putendl("malloc echoue");
+	if (!(tab = (t_tet **)malloc(sizeof(t_tet *) * ligne / 5)))
 		return (0);
-	}
-	nbr_tetr++;
+	
 	while (nbr_tetr < ligne / 5)
 	{		
-		if (!(new = fix_coor(pos, ligne, nbr_tetr)))
+		if (!(tab[nbr_tetr] = fix_coor(pos, ligne, nbr_tetr)))
 		{
 			ft_putendl("malloc echoue");
 			return (0) ;
 		}
-		(*lst)->next = new;
-		*lst = new;
-
-	nbr_tetr++;
+		nbr_tetr++;
 	}
-	return(0);
-		
+	return(tab);
 }	
 	
 /*	solve = grille_vide(3);
