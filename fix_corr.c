@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/10 21:59:55 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/15 22:55:43 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,27 @@ int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
 		{
 			(*new)->x_y[0] = 0;
 			(*new)->x_y[1] = 0;
+			(*new)->placer = 0;
 		}
 	}
 	flag++;
 	return (flag);
+}
+
+void		set_tetra_pos_origin(t_tet **new)
+{
+	int i;
+
+	i = 0;
+	while (i < 3)
+	{
+		(*new)->coor[i][0] = (*new)->coor[i][0] - (*new)->x_y[0];
+		(*new)->coor[i][1] = (*new)->coor[i][1] - (*new)->x_y[1];
+		i++;
+	}
+	(*new)->x_y[0] = 0;
+	(*new)->x_y[1] = 0;
+	(*new)->placer = 0;
 }
 
 t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra)
@@ -61,15 +78,6 @@ t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra)
 		y_tetra++;
 	}
 	new->next = NULL;
-	/*	ft_putendl("----avant----");
-		ft_display_maill(new);
-		move_down(&new,3); CA CA MARCHE !! MOUVEMENT DES PIECES
-		ft_putendl("----apres----");
-		ft_display_maill(new);
-		y_max(new);
-		OBJECTIF MAINTENANT:
-		EN FAIRE UNE LISTE ET L AFFICHER EN DEHORS DE CETTE FONCTION
-		*/
 	return (new);
 }
 

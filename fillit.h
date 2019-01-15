@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/10 21:28:39 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/15 23:32:09 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ typedef struct		s_tet
 {
 	int				coor[3][2];// Ici faire de 2 tab 1 tab : int coor[3][2]
 	int				x_y[2];
+	int				placer;
 	char			letter;
 	struct s_tet	*next;
 }					t_tet;
 
 int	set_tetra_pos(t_tet **next, int x, int y, int flag);
+void		set_tetra_pos_origin(t_tet **new);
+
 int	ft_check_line(char *line, int i); // return nbr de line ? -> nbr de tetras 
 int	check_diese(char **pcs);
 int	check_tetra(char **pos);
@@ -45,11 +48,10 @@ int		move_right(t_tet *bb, int dim, char **grille);
 int		move_down(t_tet **bb, int dim, char **grille);
 void	print_grille(char **pot, int dim);
 void	print_grille_from_pcs(t_tet *new, int dim);
-char	**put_next_maill(t_tet *new, int dim, char ***tab);
-char	**remove_last_maill(t_tet *new, int dim, char ***tab);
-void	ft_solve(t_tet *new, int dim, char **tab);
+char	**put_next_maill(t_tet **new, int dim, char ***tab);
+char	**remove_last_maill(t_tet **new, int dim, char ***tab);
+int		ft_solve(t_tet *new, int dim, char **tab);
+int		move_on(t_tet *new, int dim, char **solve); 
 int		ft_can_place(t_tet *new, int dim, char **tab);
 void	printlist(t_tet **lst, int dim, int ligne);
-t_tet	*init_lst(char **pcs, int ligne, int nbr_tetra);
-t_tet	*add_to_lst(char **pcs, int ligne, int nbr_tetra, t_tet *lst);
 #endif

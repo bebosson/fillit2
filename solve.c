@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:42:59 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/10 21:40:38 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/15 23:27:01 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**grille_vide(int dim)
 	return (pot);
 }
 
-char	**put_next_maill(t_tet *new, int dim, char ***tab)
+char	**put_next_maill(t_tet **new, int dim, char ***tab)
 {
 	int x;
 	int y;
@@ -45,30 +45,31 @@ char	**put_next_maill(t_tet *new, int dim, char ***tab)
 	nb_t = 0;
 	y = -1;
 	ft_putendl("--------------");
-	ft_display_maill(new,3);
+	ft_display_maill(*new,3);
 	while(++y < dim + 1)
 	{
 		x = -1;
 		while (++x < dim + 1)
 		{
-			if ((new->x_y[0] == x  && new->x_y[1] == y)
+			if (((*new)->x_y[0] == x  && (*new)->x_y[1] == y)
 					&& nb_t == 0 && (*tab)[y][x] == '.')
 			{
 				(*tab)[y][x] = '#';
 				nb_t++;
 			}
-			else if ((new->coor[nb_t - 1][0] == x 
-						&& new->coor[nb_t - 1][1] == y) && nb_t > 0)
+			else if (((*new)->coor[nb_t - 1][0] == x 
+						&& (*new)->coor[nb_t - 1][1] == y) && nb_t > 0)
 			{
 				(*tab)[y][x] = '#';
 				nb_t++;
 			}
 		}
 	}
+	(*new)->placer = 1;
 	return (*tab);
 }
 
-char	**remove_last_maill(t_tet *new, int dim, char ***tab)
+char	**remove_last_maill(t_tet **new, int dim, char ***tab)
 {
 	int x;
 	int y;
@@ -82,18 +83,19 @@ char	**remove_last_maill(t_tet *new, int dim, char ***tab)
 		x = -1;
 		while (++x < dim + 1)
 		{
-			if ((new->x_y[0] == x  && new->x_y[1] == y) && nb_t == 0)
+			if (((*new)->x_y[0] == x  && (*new)->x_y[1] == y) && nb_t == 0)
 			{
 				(*tab)[y][x] = '.';
 				nb_t++;
 			}
-			else if ((new->coor[nb_t - 1][0] == x  && new->coor[nb_t - 1][1] == y) && nb_t > 0)
+			else if (((*new)->coor[nb_t - 1][0] == x  && (*new)->coor[nb_t - 1][1] == y) && nb_t > 0)
 			{
 				(*tab)[y][x] = '.';
 				nb_t++;
 			}
 		}
 	}
+	(*new)->placer = 1; 
 	return (*tab);
 }
 
@@ -117,24 +119,48 @@ int		ft_can_place(t_tet *new, int dim, char **tab)
 	return (1);
 
 }
+int		move_on(t_tet *new, int dim, char **solve) // A mettre dans un while ? 
+{
 
-void		ft_solve(t_tet *new, int dim, char **solve)
+	if (move_right_dim_ok(new,dim) == 1)
+	{
+		calcul_from_origin(&new,1,0);
+		return (ft_solve(new,dim,solve));
+	}
+	else if (move_down_dim_ok(new,dim) == 1)
+	{
+		calcul_from_origin(&new,-(new->x_y[0]),1);
+		return (ft_solve(new,dim,solve));
+	}
+	else 
+		return (0);
+
+}
+
+
+int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ? 
 {
 	t_tet *new2;
 
 	new2 = new;
-	while (ft_can_place(new,dim,solve) != 1 && move_down_dim_ok(new,3) == 1)	
+	while (ft_can_place(new,dim,solve) != 1)
 	{
 		while (ft_can_place(new,dim,solve) != 1 && move_right_dim_ok(new,dim) == 1)
 		{
 			calcul_from_origin(&new,1,0);
 			printf("can do ?%d\n",ft_can_place(new,3,solve));
 		}
-		if (ft_can_place(new,dim,solve) == 1 )
-			break ;
+		if (ft_can_place(new,dim,solve) == 1)
+			return (1);
+		else if (move_down_dim_ok(new,3) == 1)
+			calcul_from_origin(&new,-(new->x_y[0]),1);
 		else
-			calcul_from_origin(&new,-(new->x_y[0]),1);	
+		{
+			set_tetra_pos_origin(&new);
+			return (0);
+		}
 	}
+	return (1);
 }
 
 	//ICI on place les pieces 
