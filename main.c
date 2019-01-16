@@ -9,7 +9,7 @@ int		read_main(char ***pos)
 	int ret;
 
 	i = 0;
-	fd = open("testounet", O_RDONLY);
+	fd = open("testounet2", O_RDONLY);
 
 	printf("tata\n");
 	while (((ret = get_next_line(fd, &line)) > 0))
@@ -58,23 +58,33 @@ int		start_solve(t_tet **tab, int ligne)
 	{
 		printf("----- num piece = %d ----- \n",i);
 		ft_display_maill(tab[i], dim);
-		printf("result !! = %d \n", ft_solve(tab[i], dim, solve));
-		if ()
+//		printf("result !! = %d \n", ft_solve(tab[i], dim, solve));
+		if (ft_can_place(tab[i],dim,solve) == 1)
 		{
-			if(ft_solve(tab[i], dim, solve) == 1)
 			solve = put_next_maill(&tab[i],dim,&solve);
+			i++;
 		}
-/*		else if (ft_solve(tab[i], dim, solve) == 0)
-		{
-			if (i == 2)
+		else if (ft_can_place(tab[i],dim,solve) == 0)
+			if(ft_solve(tab[i], dim, solve) == 1)
+			{
+				printf("-----tadam-----\n");
+				solve = put_next_maill(&tab[i], dim,&solve);
+				i++;
+			}
+			else if(ft_solve(tab[i], dim, solve) == 0 && i > 0)
+			{
+				solve = remove_last_maill(&tab[i-1],dim,&solve);
+				print_grille(solve, dim);
+				ft_putendl("-------avant------");
+				ft_display_maill(tab[1], dim);
+				move_on(tab[i-1],dim,solve);
+				ft_putendl("-------apres------");
+				ft_display_maill(tab[1], dim);
+				printf("Tu rentres là ?\n");
 				i--;
-			move_on(tab[i], dim, solve);
-		}
-*/
-			ft_display_maill(tab[i], dim);
-		printf("toto\n");
+			}
+
 		print_grille(solve, dim);
-		i++;
 	}
 	return (0);
 }
@@ -88,7 +98,7 @@ int main()
 	pos = malloc(5550000);
 	ligne = read_main(&pos);
 	tab = set_lst_from_file(ligne, pos);
-	printlist(tab, 3, ligne);
+//	printlist(tab, 3, ligne);
 	start_solve(tab,ligne);
 	return (0);
 }

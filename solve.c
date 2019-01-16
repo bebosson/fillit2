@@ -95,7 +95,8 @@ char	**remove_last_maill(t_tet **new, int dim, char ***tab)
 			}
 		}
 	}
-	(*new)->placer = 1; 
+	printf("nb_t %d \n", nb_t);
+	(*new)->placer = 0; 
 	return (*tab);
 }
 
