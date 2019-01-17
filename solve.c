@@ -120,6 +120,18 @@ int		ft_can_place(t_tet *new, int dim, char **tab)
 	return (1);
 
 }
+int		can_move_on(t_tet *new, int dim, char **solve)
+{
+	if (move_right_dim_ok(new,dim) == 1)
+		return (1);
+	else if (move_down_dim_ok(new,dim) == 1)
+		return (1);
+	else 
+		return (0);
+
+
+}
+
 int		move_on(t_tet *new, int dim, char **solve) // A mettre dans un while ? 
 {
 
@@ -141,9 +153,9 @@ int		move_on(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 
 int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ? 
 {
-	t_tet *new2;
-
-	new2 = new;
+	int i_placer;
+	
+	i_placer = new->placer;
 	while (ft_can_place(new,dim,solve) != 1)
 	{
 		while (ft_can_place(new,dim,solve) != 1 && move_right_dim_ok(new,dim) == 1)
@@ -158,6 +170,7 @@ int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 		else
 		{
 			set_tetra_pos_origin(&new);
+			new->placer = i_placer;
 			return (0);
 		}
 	}

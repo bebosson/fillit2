@@ -91,48 +91,41 @@ int 	ft_check_line(char *line, int i)
 	return (1);
 }
 
-/*char	**enhaut(char **new)
+void	alpha_solve(char ***solve, t_tet *bb, int dim)
 {
-	int		i;
 
-	i = 0;
-	while (new[i])
+	int x;
+	int y;
+	int nb_t;
+
+	nb_t = 0;
+	y = -1;
+	while(++y < dim + 1)
 	{
-		if (ft_strchr(new[i], 35))
-			break ;
-		i = 0;
-		while (!(ft_strchr(new[i], 35)) && i < 3)
+		x = -1;
+		while (++x < dim + 1)
 		{
-			while (new[i + 1])
+			if (((bb)->x_y[0] == x  && (bb)->x_y[1] == y)
+					&& nb_t == 0)
 			{
-				new[i] = new[i + 1];
-				i++;
+				(*solve)[y][x] = bb->letter;
+				nb_t++;
 			}
-			new[3] = ft_strdup("....");
+			else if (((bb)->coor[nb_t - 1][0] == x 
+						&& (bb)->coor[nb_t - 1][1] == y) && nb_t > 0)
+			{
+				(*solve)[y][x] = bb->letter;
+				nb_t++;
+			}
 		}
 	}
-	return (new);
 }
 
-char	**agauche(char **p)
+void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne)
 {
-	int		i;
-	int		j;
-	char	**a;
+	int i;
 
-
-	a = p;
-	while (a[0][0] == 46 && a[1][0] == 46 && a[2][0] == 46 && a[3][0] == 46)
-	{
-		i = -1;
-		while (i++ < 3)
-		{
-			a[i][0] = p[i][1];
-			a[i][1] = p[i][2];
-			a[i][2] = p[i][3];
-			a[i][3] = '.';
-		}
-	}
-	return (a);
+	i = -1;
+	while (++i <= ligne / 5)
+		alpha_solve(&solve, bb[i], dim);
 }
-*/

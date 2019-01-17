@@ -25,13 +25,15 @@ typedef struct		s_tet
 	struct s_tet	*next;
 }					t_tet;
 
+void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne);
+void	alpha_solve(char ***solve, t_tet *bb, int dim);
 int	set_tetra_pos(t_tet **next, int x, int y, int flag);
 void		set_tetra_pos_origin(t_tet **new);
-
+void		comb_tetra(t_tet **tab, int i, int dim, char **solve);
 int	ft_check_line(char *line, int i); // return nbr de line ? -> nbr de tetras 
 int	check_diese(char **pcs);
 int	check_tetra(char **pos);
-t_tet	*fix_coor(char **pcs, int ligne, int nbr_tetra);
+t_tet	*fix_coor(char **pcs, int nbr_tetra);
 int		check_read(int i,int ret,char ***pos);
 int		read_main(char ***pos);
 ///t_tet	*fix_coor2(char **pcs);
@@ -54,4 +56,6 @@ int		ft_solve(t_tet *new, int dim, char **tab);
 int		move_on(t_tet *new, int dim, char **solve); 
 int		ft_can_place(t_tet *new, int dim, char **tab);
 void	printlist(t_tet **lst, int dim, int ligne);
+int		can_move_on(t_tet *new, int dim, char **solve);
+
 #endif

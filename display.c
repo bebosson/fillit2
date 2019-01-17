@@ -30,6 +30,8 @@ void		ft_display_maill(t_tet *bb, int dim)
 		printf("x = %d || ",bb->coor[i][0]);
 		printf("y = %d \n",bb->coor[i][1]);
 	}
+	printf("placer = %d \n",bb->placer);
+	printf("lettre: [%c] \n",bb->letter);
 	print_grille_from_pcs(bb, dim);
 }
 
@@ -38,7 +40,7 @@ void	printlist(t_tet **tab, int dim, int ligne)
 	int i;
 
 	i = -1;
-	while (++i < ligne / 5)
+	while (++i <= ligne / 5)
 		ft_display_maill(tab[i], dim);
 }
 
