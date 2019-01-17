@@ -72,12 +72,12 @@ void	print_grille_from_pcs(t_tet *new, int dim)
 		{
 			if ((new->x_y[0] == x  && new->x_y[1] == y) && nb_t == 0)
 			{
-				printf("#");
+				printf("%c",new->letter);
 				nb_t++;
 			}
 			else if ((new->coor[nb_t - 1][0] == x  && new->coor[nb_t - 1][1] == y) && nb_t > 0)
 			{
-				printf("#");
+				printf("%c",new->letter);
 				nb_t++;
 			}
 			else

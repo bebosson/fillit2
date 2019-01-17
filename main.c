@@ -54,17 +54,22 @@ void		comb_tetra(t_tet **tab, int i, int dim, char **solve)
 {
 	int j;
 //ERREUR SUR move_on: utilise ft_solve sans remove la piece; 
+
+	ft_putendl("-------comb_tetra------");
+	printf("IIIIIIIIII  =============== %d\n",i);
+		ft_display_maill(tab[i], dim);
 	while (ft_solve(tab[i], dim, solve) == 0)
 	{
 		
 		j = i - 1;
 		
-		printf("IIIIIIIIII  =============== %d\n",i);
-		ft_display_maill(tab[i], dim);
+		ft_putendl("======= while_ft_solve_comb_tetra ======");
+		
+		printf("--------ORIGINE------- \n");
 		set_tetra_pos_origin(&tab[i]);
 		ft_display_maill(tab[i], dim);
 
-		printf("JJJJJJJJJJJJJJJ =============== %d\n",j);
+		printf("========J===%d========\n",j);
 
 		ft_display_maill(tab[j], dim);
 		print_grille(solve, dim);
@@ -73,18 +78,18 @@ void		comb_tetra(t_tet **tab, int i, int dim, char **solve)
 		while (j >= 0 && ft_can_place(tab[j], dim, solve) == 0)
 		{
 
-			ft_putendl("-------avant_comb_tetra------");
-			printf("JJJJJJJJJJJJJJJ =============== %d\n",j);
+			ft_putendl("======while_comb_tetra=====");
+			printf("======= J === %d =======\n",j);
 			ft_display_maill(tab[j], dim);
-			printf("CHELOU \n");
+			printf("REMOVE \n");
 			remove_last_maill(&tab[j],dim,&solve); // fonction
 			print_grille(solve, dim);
 			printf("CAN_MOVE_ON = %d\n",can_move_on(tab[j],dim,solve));
 			if ((can_move_on(tab[j],dim,solve) == 1))
 			{
 				move_on(tab[j],dim,solve);
-				ft_putendl("-------apres_comb_tetra------");
 				ft_display_maill(tab[j], dim);
+				ft_putendl("PUT\n");
 				solve = put_next_maill(&tab[j], dim,&solve);
 				print_grille(solve, dim);
 				break ;
@@ -93,7 +98,7 @@ void		comb_tetra(t_tet **tab, int i, int dim, char **solve)
 				j--;
 		}
 //	printlist(tab, 3, ligne);
-		printf("JJJJJJJJJJJJJJJ =============== %d\n",j);
+		printf("====J=%d======\n",j);
 		ft_display_maill(tab[j], dim);
 		printf("t'es la \n");
 	}
@@ -101,16 +106,14 @@ void		comb_tetra(t_tet **tab, int i, int dim, char **solve)
 		ft_display_maill(tab[i], dim);
 }
 
-char		**start_solve(t_tet **tab, int ligne)
+char		**start_solve(t_tet **tab, int ligne, int dim)
 {
 	char **solve;
-	int dim;
 	int nbr_tetra;
 	int i;
 
 	i = 0;
 	nbr_tetra = ligne / 5;
-	dim = 3;
 	solve = grille_vide(dim);
 	while (i <= nbr_tetra) // check_place != 1 && i <= nbr_tetra pout le dernier
 	{
@@ -162,14 +165,15 @@ int main()
 	t_tet **tab;
 	char **solve;
 	int ligne = 0;
+	int dim = 3;
 
 	pos = malloc(5550000);
 	ligne = read_main(&pos);
 	tab = set_lst_from_file(ligne, pos);
-	printlist(tab, 3, ligne);
-	solve = start_solve(tab,ligne);
-	print_grille(solve, 3);
-	alpha_solve_all(solve, tab, 3, ligne);
-	print_grille(solve, 3);
+	printlist(tab, dim, ligne);
+	solve = start_solve(tab,ligne, dim);
+	print_grille(solve, dim);
+	alpha_solve_all(solve, tab, dim, ligne);
+	print_grille(solve, dim);
 	return (0);
 }

@@ -33,7 +33,7 @@ int		move_right_dim_ok(t_tet *bb, int dim)
 {
 	int i_x_max;
 
-	i_x_max = x_max(bb);
+	i_x_max = x_max(bb, dim);
 	if (i_x_max + 1 > dim)
 		return (0);
 	else
@@ -44,7 +44,7 @@ int		move_down_dim_ok(t_tet *bb, int dim)
 {
 	int i_y_max;
 
-	i_y_max = y_max(bb);
+	i_y_max = y_max(bb, dim);
 	if (i_y_max + 1 > dim)
 		return (0);
 	else
@@ -119,12 +119,12 @@ int		dim_min(t_tet *new, t_tet *bb)
 	int dim_y;
 
 	dim = 0;
-	dim_x = x_max(bb);
-	dim_y = y_max(bb);
-	if (x_max(new) > dim_x)
-		dim_x = x_max(new);
-	if (y_max(new) > dim_y)
-		dim_y = y_max(new);
+	dim_x = x_max(bb, dim);
+	dim_y = y_max(bb, dim);
+	if (x_max(new, dim) > dim_x)
+		dim_x = x_max(new, dim);
+	if (y_max(new, dim) > dim_y)
+		dim_y = y_max(new, dim);
 	if (dim_x > dim_y)
 		return (dim_x);
 	else
@@ -132,7 +132,7 @@ int		dim_min(t_tet *new, t_tet *bb)
 }
 
 
-int		x_max(t_tet *bb)
+int		x_max(t_tet *bb, int dim)
 {
 	int i;
 	int x_max;
@@ -144,12 +144,15 @@ int		x_max(t_tet *bb)
 		if (x_max < bb->coor[i][0])
 			x_max = bb->coor[i][0];
 	}
-	printf("x_max = %d\n",x_max);
-	ft_putendl("--------");
+	if (x_max == dim)
+	{
+		printf("x_max = %d\n",x_max);
+		ft_putendl("--------");
+	}
 	return (x_max);
 }
 
-int		y_max(t_tet *bb)
+int		y_max(t_tet *bb, int dim)
 {
 	int i;
 	int y_max;
@@ -161,8 +164,11 @@ int		y_max(t_tet *bb)
 		if (y_max < bb->coor[i][1])
 			y_max = bb->coor[i][1];
 	}
-	printf("y_max = %d\n",y_max);
-	ft_putendl("--------");
+	if (y_max == dim)
+	{
+		printf("y_max = %d\n",y_max);
+		ft_putendl("--------");
+	}
 	return (y_max);
 }
 

@@ -100,46 +100,4 @@ t_tet	**set_lst_from_file(int ligne, char **pos)
 		nbr_tetr++;
 	}
 	return(tab);
-}	
-	
-/*	solve = grille_vide(3);
-	//		print_grille(solve,3);
-	//		solve = ass_first_maill(new,3,&solve);
-	//		print_grille_from_pcs(new2,3);
-	//		ft_display_maill(new,3);
-	solve = put_next_maill(new2,3,&solve);
-	print_grille(solve,3);
-
-
-	printf("yo ?? %d\n",ft_can_place(new,3,&solve));
-	printf("move R ?%d\n",move_down_dim_ok(new,3));
-
-	
-	printf("can do ?%d\n",ft_can_place(new,3,&solve));
-	printf("allo?\n");
-	ft_solve(&new,3,&solve);
-	solve = put_next_maill(new,3,&solve);
-	//		ft_display_maill(new,3);
-	//		move_right(&new,3);
-	//		print_grille_from_pcs(new,3);
-
-	print_grille(solve,3);
-	ft_display_maill(new,3);
-	//		print_grille_from_pcs(new2,3);
-	//		calcul_from_origin(&new,1,0);
-	//		calcul_from_origin(&new,1,0);
-	//		ft_display_maill(new,3);
-	print_grille(solve,3);
-	//		printf("%d\n",ft_can_place(new,3,&solve));
-	//		solve = ass_first_maill(new2,3,&solve);
-	//		lst->next = new;
-	//		free(new);
-	//			init_lst(char ** ..);
-	//		else if nbr_tetr > 0
-	//			add_to_lst(char **, t_bis list)
-	//	}
-	//	printlist(lst);
-	return (new);
 }
-*/
-

@@ -161,7 +161,7 @@ int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 		while (ft_can_place(new,dim,solve) != 1 && move_right_dim_ok(new,dim) == 1)
 		{
 			calcul_from_origin(&new,1,0);
-			printf("can do ?%d\n",ft_can_place(new,3,solve));
+			printf("move_R[%c]\n",new->letter);
 		}
 		if (ft_can_place(new,dim,solve) == 1)
 			return (1);
@@ -175,6 +175,45 @@ int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 		}
 	}
 	return (1);
+}
+
+void	alpha_solve(char ***solve, t_tet *bb, int dim)
+{
+
+	int x;
+	int y;
+	int nb_t;
+
+	nb_t = 0;
+	y = -1;
+	while(++y < dim + 1 && bb->placer == 1)
+	{
+		x = -1;
+		while (++x < dim + 1)
+		{
+			if (((bb)->x_y[0] == x  && (bb)->x_y[1] == y)
+					&& nb_t == 0)
+			{
+				(*solve)[y][x] = bb->letter;
+				nb_t++;
+			}
+			else if (((bb)->coor[nb_t - 1][0] == x 
+						&& (bb)->coor[nb_t - 1][1] == y) && nb_t > 0)
+			{
+				(*solve)[y][x] = bb->letter;
+				nb_t++;
+			}
+		}
+	}
+}
+
+void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne)
+{
+	int i;
+
+	i = -1;
+	while (++i <= ligne / 5)
+		alpha_solve(&solve, bb[i], dim);
 }
 
 	//ICI on place les pieces 
