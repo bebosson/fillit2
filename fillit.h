@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/15 23:32:09 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:51:23 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne);
 void	alpha_solve(char ***solve, t_tet *bb, int dim);
 int	set_tetra_pos(t_tet **next, int x, int y, int flag);
 void		set_tetra_pos_origin(t_tet **new);
-void		comb_tetra(t_tet **tab, int i, int dim, char **solve);
+int		comb_tetra(t_tet **tab, int i, int dim, char **solve);
 int	ft_check_line(char *line, int i); // return nbr de line ? -> nbr de tetras 
 int	check_diese(char **pcs);
 int	check_tetra(char **pos);
