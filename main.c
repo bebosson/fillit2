@@ -170,6 +170,7 @@ char		**start_solve(t_tet **tab, int ligne, int *dim)
 					remove_all_maill(tab,nbr_tetra, solve, *dim);
 				}
 				i = 0;
+				*dim = new_dim;
 //				break ; 
 				//return (start_solve(tab, ligne));
 			}
@@ -195,7 +196,7 @@ int main(int ac, char **av)
 	ligne = read_main(&pos,av);
 	tab = set_lst_from_file(ligne, pos);
 	printlist(tab, dim, ligne);
-	return (0);
+//	return (0);
 	solve = start_solve(tab,ligne, &dim);
 	print_grille(solve, dim);
 	alpha_solve_all(solve, tab, dim, ligne);
