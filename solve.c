@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:42:59 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/15 23:27:01 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/24 17:53:59 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**put_next_maill(t_tet **new, int dim, char ***tab)
 	nb_t = 0;
 	y = -1;
 	ft_putendl("--------------");
-	ft_display_maill(*new,3);
+	ft_display_maill(*new,dim);
 	while(++y < dim + 1)
 	{
 		x = -1;
@@ -165,8 +165,11 @@ int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 		}
 		if (ft_can_place(new,dim,solve) == 1)
 			return (1);
-		else if (move_down_dim_ok(new,3) == 1)
+		else if (move_down_dim_ok(new,dim) == 1)
+		{
 			calcul_from_origin(&new,-(new->x_y[0]),1);
+			printf("move_D[%c]\n",new->letter);
+		}
 		else
 		{
 			set_tetra_pos_origin(&new);
@@ -174,6 +177,7 @@ int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 			return (0);
 		}
 	}
+
 	return (1);
 }
 

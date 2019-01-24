@@ -1,7 +1,7 @@
 #include "fillit.h"
 
 
-int		read_main(char ***pos)
+int		read_main(char ***pos, char **av)
 {
 	int fd;
 	char *line;
@@ -9,7 +9,7 @@ int		read_main(char ***pos)
 	int ret;
 
 	i = 0;
-	fd = open("testounet2", O_RDONLY);
+	fd = open(av[1], O_RDONLY);
 
 	while (((ret = get_next_line(fd, &line)) > 0))
 	{
@@ -72,36 +72,38 @@ int		comb_tetra(t_tet **tab, int i, int dim, char **solve)
 		printf("--------ORIGINE------- \n");
 		set_tetra_pos_origin(&tab[i]);
 		ft_display_maill(tab[i], dim);
-
 		printf("========J===%d========\n",j);
-		
 		ft_display_maill(tab[j], dim);
 		print_grille(solve, dim);
-		
 		printf("CAN_PLACE = %d\n",ft_can_place(tab[j], dim, solve));
 		while (j >= 0 && ft_can_place(tab[j], dim, solve) == 0)
 		{
-
 			ft_putendl("======while_comb_tetra=====");
 			printf("======= J === %d =======\n",j);
 			ft_display_maill(tab[j], dim);
 			printf("REMOVE \n");
-			remove_last_maill(&tab[j],dim,&solve); // fonction
+			if (tab[j]->placer != 0)
+				remove_last_maill(&tab[j],dim,&solve); // fonction
 			print_grille(solve, dim);
 			printf("CAN_MOVE_ON = %d\n",can_move_on(tab[j],dim,solve));
-			if ((can_move_on(tab[j],dim,solve) == 1))
+			if (move_on(tab[j],dim, solve) == 1)
+			{
+				solve = put_next_maill(&tab[j], dim,&solve);
+				print_grille(solve, dim);
+				return (new_dim);
+			}
+/*			if ((can_move_on(tab[j],dim,solve) == 1))
 			{
 				move_on(tab[j],dim,solve);
 				ft_display_maill(tab[j], dim);
-				ft_putendl("PUT\n");
-
 				if (ft_can_place(tab[j],dim,solve) == 1)
 				{
+					ft_putendl("PUT\n");
 					solve = put_next_maill(&tab[j], dim,&solve);
 					print_grille(solve, dim);
 					break ;
 				}
-			}
+*/
 			else
 				j--;
 		}
@@ -160,7 +162,6 @@ char		**start_solve(t_tet **tab, int ligne, int *dim)
 				//move_on(tab[i-1],dim,solve);// fonction
 				
 				printf("t'es la \n");
-//				break ;
 				new_dim = comb_tetra(tab, i,new_dim, solve);
 				if (new_dim != *dim)
 				{
@@ -182,7 +183,7 @@ char		**start_solve(t_tet **tab, int ligne, int *dim)
 	return (solve);
 }
 
-int main()
+int main(int ac, char **av)
 {
 	char **pos;
 	t_tet **tab;
@@ -191,9 +192,10 @@ int main()
 	int dim = 3;
 
 	pos = malloc(5550000);
-	ligne = read_main(&pos);
+	ligne = read_main(&pos,av);
 	tab = set_lst_from_file(ligne, pos);
 	printlist(tab, dim, ligne);
+	return (0);
 	solve = start_solve(tab,ligne, &dim);
 	print_grille(solve, dim);
 	alpha_solve_all(solve, tab, dim, ligne);

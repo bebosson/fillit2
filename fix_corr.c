@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/15 22:55:43 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:27:58 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,25 @@ void		set_tetra_pos_origin(t_tet **new)
 	(*new)->x_y[1] = 0;
 	(*new)->placer = 0;
 }
+
+void		set_tetra_pos_positive(t_tet **new)
+{
+	int i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if ((*new)->coor[i][0] < 0)
+		{
+			
+		}
+	}
+	(*new)->x_y[0] = 0;
+	(*new)->x_y[1] = 0;
+	(*new)->placer = 0;
+}
+
+
 
 t_tet	*fix_coor(char **pcs, int nbr_tetra)
 {

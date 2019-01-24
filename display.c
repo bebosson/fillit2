@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 22:46:28 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/10 19:11:52 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/24 17:51:53 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	print_grille_from_pcs(t_tet *new, int dim)
 
 	nb_t = 0;
 	y = -1;
+
+	printf("dim = [%d] \n",dim);
 	ft_putendl("-------tetra-------");
 	while(++y < dim + 1)
 	{
