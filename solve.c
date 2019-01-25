@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:42:59 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/24 17:53:59 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:12:19 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int		move_on(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 	else if (move_down_dim_ok(new,dim) == 1)
 	{
 		calcul_from_origin(&new,-(new->x_y[0]),1);
+		while (coor_neg_test(new) == 1)
+			coor_neg(new);
 		return (ft_solve(new,dim,solve));
 	}
 	else 
@@ -168,6 +170,8 @@ int		ft_solve(t_tet *new, int dim, char **solve) // A mettre dans un while ?
 		else if (move_down_dim_ok(new,dim) == 1)
 		{
 			calcul_from_origin(&new,-(new->x_y[0]),1);
+			while (coor_neg_test(new) == 1)
+				coor_neg(new);
 			printf("move_D[%c]\n",new->letter);
 		}
 		else

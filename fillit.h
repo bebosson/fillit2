@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/24 15:12:32 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/25 19:55:31 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct		s_tet
 	struct s_tet	*next;
 }					t_tet;
 
+
+int		coor_neg_test(t_tet *new);
+void		coor_neg(t_tet *new);
 void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne);
 void	alpha_solve(char ***solve, t_tet *bb, int dim);
 int	set_tetra_pos(t_tet **next, int x, int y, int flag);

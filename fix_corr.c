@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/24 22:34:02 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:13:42 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,13 @@ int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
 	else if (flag != 0)
 	{
 		(*new)->coor[flag - 1][0] = x - (*new)->x_y[0];
-/*		if ((*new)->coor[flag - 1][0] < 0)
-		{
-			x++;
-			set_tetra_pos(new, x, y, flag);
-			booly++;
-		}
-*/		(*new)->coor[flag - 1][1] = y - (*new)->x_y[1];
-/*		if ((*new)->coor[flag - 1][1] < 0)
-		{
-			y++;
-			set_tetra_pos(new, x, y, flag);
-			booly++;
-		}
-*/		if (flag > 2 && booly == 0)
+		(*new)->coor[flag - 1][1] = y - (*new)->x_y[1];
+		if (flag > 2 && booly == 0)
 		{
 			(*new)->x_y[0] = 0;
 			(*new)->x_y[1] = 0;
 			(*new)->placer = 0;
+			coor_neg(*new);
 		}
 	}
 	flag++;
@@ -64,6 +53,8 @@ void		set_tetra_pos_origin(t_tet **new)
 	(*new)->x_y[0] = 0;
 	(*new)->x_y[1] = 0;
 	(*new)->placer = 0;
+	while (coor_neg_test (*new) == 1)
+		coor_neg(*new);
 }
 
 /*void		set_tetra_pos_positive(t_tet **new)
@@ -87,7 +78,34 @@ void		set_tetra_pos_origin(t_tet **new)
 	(*new)->placer = 0;
 }
 */
+int		coor_neg_test(t_tet *new)
+{
+	int i;
 
+	i = 0;
+	while (i < 3)
+	{
+		if (new->coor[i][0] < 0)
+			return (1) ;
+		i++;
+	}
+	return (0);
+}
+
+
+void		coor_neg(t_tet *new)
+{
+	int i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (new->coor[i][0] < 0)
+			calcul_from_origin(&new, 1, 0);
+		i++;
+	}
+
+}
 
 t_tet	*fix_coor(char **pcs, int nbr_tetra)
 {
