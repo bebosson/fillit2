@@ -1,48 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   write_grille.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/26 13:10:37 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/26 16:19:04 by bebosson         ###   ########.fr       */
+/*   Created: 2019/01/26 16:34:05 by bebosson          #+#    #+#             */
+/*   Updated: 2019/01/26 16:47:31 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "fillit.h"
 
-void print_grille(char**pot, int dim)
+void	write_grille_diese(int x, int y, int *nb_t, char ***tab)
 {
-	int i;
-
-	i = -1;
-	while (pot[++i])
-		ft_putendl(pot[i]);
+	(*tab)[y][x] = '#';
+	(*nb_t)++;
 }
 
-int		coor_neg_test(t_tet *new)
+void	write_grille_point(int x, int y, int *nb_t, char ***tab)
 {
-	int i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (new->coor[i][0] < 0)
-			return (1);
-		i++;
-	}
-	return (0);
+	(*tab)[y][x] = '.';
+	(*nb_t)++;
 }
 
-void	coor_neg(t_tet *new)
+void	write_grille_letter(int *nb_t, char *tab, t_tet *bb)
 {
-	int i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (new->coor[i][0] < 0)
-			calcul_from_origin(&new, 1, 0);
-		i++;
-	}
+	(*tab) = bb->letter;
+	(*nb_t)++;
 }

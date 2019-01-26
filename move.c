@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:43:10 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/10 21:51:29 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/26 13:52:02 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,86 +51,6 @@ int		move_down_dim_ok(t_tet *bb, int dim)
 		return (1);
 }
 
-//move_down => calcul_from_origin(**bb,bb->x_y[0],bb->x_y + 1)
-//
-int		move_right(t_tet *bb, int dim, char **grille)
-{
-	// Faire une fonction qui copie et malloc le maillon pour le supprimer si le mouvement et valider 
-
-	printf("move_right_dim_ok %d \n", move_right_dim_ok(bb,dim));
-	while (move_right_dim_ok(bb,dim) != 1 && ft_can_place(bb,dim,&grille) != 1)
-		calcul_from_origin(&bb,1,0);
-//	else
-//		return (0);
-	printf("ft_can_place  %d \n", ft_can_place(bb,dim,&grille));
-	if (ft_can_place(bb,dim,&grille))
-	{
-		put_next_maill(bb, dim, &grille);
-		calcul_from_origin(&bb,-1,0);
-		remove_last_maill(bb,dim,&grille);
-		calcul_from_origin(&bb,2,0);
-		return (1);
-	}
-	else
-	{
-		calcul_from_origin(&bb,-1,0);
-		return (0);
-	}
-	//		calcul_from_origin(&bb,(*bb)->x_y[0] + 1,(*bb)->x_y[1]);
-}
-//on fait les test dans les fonctions de deplacement ou en dehors ???
-
-int		move_down(t_tet **bb, int dim, char **grille)
-{
-	if (move_right_dim_ok(*bb,dim))
-		calcul_from_origin(bb,-(*bb)->x_y[0],1);
-	else
-		return (0);
-	if (ft_can_place(*bb,dim,&grille))
-	{
-		put_next_maill(*bb, dim, &grille);
-		// faire fonct opp a ass_first_maill qui retire la piece 
-		return (1);
-	}
-	else
-	{
-		calcul_from_origin(bb,-1,0);
-		return (0);
-	}
-	
-}
-// Objectif : repeter les move_right  m_r m_r m_d m_r m_r ...
-//             pour parcourir toute la grille 
-
-/*void	move_grille(t_tet **bb, int dim, char **tab)
-{
-	while (
-
-
-}
-*/
-// Objectif : parcourir la liste et en sortir le x_max et y_max pour la dim min
-// Exemple :
-//
-int		dim_min(t_tet *new, t_tet *bb)
-{
-	int dim;
-	int dim_x;
-	int dim_y;
-
-	dim = 0;
-	dim_x = x_max(bb, dim);
-	dim_y = y_max(bb, dim);
-	if (x_max(new, dim) > dim_x)
-		dim_x = x_max(new, dim);
-	if (y_max(new, dim) > dim_y)
-		dim_y = y_max(new, dim);
-	if (dim_x > dim_y)
-		return (dim_x);
-	else
-		return (dim_y);
-}
-
 
 int		x_max(t_tet *bb, int dim)
 {
@@ -143,11 +63,6 @@ int		x_max(t_tet *bb, int dim)
 	{
 		if (x_max < bb->coor[i][0])
 			x_max = bb->coor[i][0];
-	}
-	if (x_max == dim)
-	{
-		printf("x_max = %d\n",x_max);
-		ft_putendl("--------");
 	}
 	return (x_max);
 }
@@ -164,12 +79,5 @@ int		y_max(t_tet *bb, int dim)
 		if (y_max < bb->coor[i][1])
 			y_max = bb->coor[i][1];
 	}
-	if (y_max == dim)
-	{
-		printf("y_max = %d\n",y_max);
-		ft_putendl("--------");
-	}
 	return (y_max);
 }
-
-

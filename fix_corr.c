@@ -6,19 +6,15 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/25 20:13:42 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/26 16:19:32 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
-int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
+int		set_tetra_pos(t_tet **new, int x, int y, int flag)
 {
-	int booly;
-
-	booly = 0;
-	if (flag == 0)  // essayer de faire sans;
+	if (flag == 0)
 	{
 		(*new)->x_y[0] = x;
 		(*new)->x_y[1] = y;
@@ -27,7 +23,7 @@ int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
 	{
 		(*new)->coor[flag - 1][0] = x - (*new)->x_y[0];
 		(*new)->coor[flag - 1][1] = y - (*new)->x_y[1];
-		if (flag > 2 && booly == 0)
+		if (flag > 2)
 		{
 			(*new)->x_y[0] = 0;
 			(*new)->x_y[1] = 0;
@@ -39,7 +35,7 @@ int		set_tetra_pos(t_tet **new, int x, int y,  int flag)
 	return (flag);
 }
 
-void		set_tetra_pos_origin(t_tet **new)
+void	set_tetra_pos_origin(t_tet **new)
 {
 	int i;
 
@@ -52,73 +48,23 @@ void		set_tetra_pos_origin(t_tet **new)
 	}
 	(*new)->x_y[0] = 0;
 	(*new)->x_y[1] = 0;
-	(*new)->placer = 0;
-	while (coor_neg_test (*new) == 1)
+	while (coor_neg_test(*new) == 1)
 		coor_neg(*new);
-}
-
-/*void		set_tetra_pos_positive(t_tet **new)
-{
-	int i;
-	int flag;
-	
-	flag = 0;
-	i = -1;
-	while (++i < 3)
-	{
-		if ((*new)->coor[i][0] < 0)
-		{
-			flag = 1;
-			(*new)->x_y[0]++;
-			set_tetra_pos(&new, 
-		}
-	}
-	(*new)->x_y[0] = 0;
-	(*new)->x_y[1] = 0;
 	(*new)->placer = 0;
-}
-*/
-int		coor_neg_test(t_tet *new)
-{
-	int i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (new->coor[i][0] < 0)
-			return (1) ;
-		i++;
-	}
-	return (0);
-}
-
-
-void		coor_neg(t_tet *new)
-{
-	int i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (new->coor[i][0] < 0)
-			calcul_from_origin(&new, 1, 0);
-		i++;
-	}
-
 }
 
 t_tet	*fix_coor(char **pcs, int nbr_tetra)
 {
-	int x;
-	int	y_tetra;
-	int v_y_max;
+	int		x;
+	int		y_tetra;
+	int		v_y_max;
 	t_tet	*new;
-	int nbr_pcs;
+	int		nbr_pcs;
 
 	nbr_pcs = 0;
-	y_tetra = (nbr_tetra > 0) ? 5 * nbr_tetra  : 0;
+	y_tetra = (nbr_tetra > 0) ? 5 * nbr_tetra : 0;
 	v_y_max = y_tetra + 4;
-	if (!(new =(t_tet*)malloc(sizeof(t_tet))))
+	if (!(new = (t_tet*)malloc(sizeof(t_tet))))
 		return (NULL);
 	while (y_tetra < v_y_max)
 	{
@@ -135,24 +81,22 @@ t_tet	*fix_coor(char **pcs, int nbr_tetra)
 	return (new);
 }
 
-
 t_tet	**set_lst_from_file(int ligne, char **pos)
 {
-	int nbr_tetr;
-	t_tet **tab;
-	
+	int		nbr_tetr;
+	t_tet	**tab;
+
 	nbr_tetr = 0;
 	if (!(tab = (t_tet **)malloc(sizeof(t_tet *) * ligne / 5)))
 		return (0);
-	
 	while (nbr_tetr <= ligne / 5)
-	{		
+	{
 		if (!(tab[nbr_tetr] = fix_coor(pos, nbr_tetr)))
 		{
 			ft_putendl("malloc echoue");
-			return (0) ;
+			return (0);
 		}
 		nbr_tetr++;
 	}
-	return(tab);
+	return (tab);
 }

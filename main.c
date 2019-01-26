@@ -10,20 +10,23 @@ int		read_main(char ***pos, char **av)
 
 	i = 0;
 	fd = open(av[1], O_RDONLY);
-
+	if (!(*pos =(char**)malloc(sizeof(char*) * 130)))
+		return (0);
 	while (((ret = get_next_line(fd, &line)) > 0))
 	{
 		if (!(ft_check_line(line ,i + 1)))
 		{
-			ft_putendl("pb de checkline");
+			ft_putendl("error");
 			return (0);
 		}
 		(*pos)[i] = ft_strdup(line);
 		i++;
 	}
-
 	if (!(check_read(i, ret, pos)))
-		ft_putendl("check_main failed");
+	{
+		ft_putendl("error");
+		i = 0;
+	}
 	return (i);
 }
 int		check_place(t_tet **tab, int ligne)
@@ -49,78 +52,37 @@ void	remove_all_maill(t_tet **tab, int nbr_tetra, char **solve, int dim)
 	while (++i < nbr_tetra)
 	{
 		set_tetra_pos_origin(&tab[i]);
-		remove_last_maill(&tab[i],dim,&solve);
+		remove_last_maill(&tab[i],dim,solve);
 	}
 }
 
 int		comb_tetra(t_tet **tab, int i, int dim, char **solve)
 {
 	int j;
-	int new_dim;
 
-	new_dim = dim ;
-	ft_putendl("-------comb_tetra------");
-	printf("IIIIIIIIII  =============== %d\n",i);
-		ft_display_maill(tab[i], dim);
 	while (ft_solve(tab[i], dim, solve) == 0)
 	{
-		
 		j = i - 1;
-		
-		ft_putendl("======= while_ft_solve_comb_tetra ======");
-		
-		printf("--------ORIGINE------- \n");
 		set_tetra_pos_origin(&tab[i]);
-		ft_display_maill(tab[i], dim);
-		printf("========J===%d========\n",j);
-		ft_display_maill(tab[j], dim);
-		print_grille(solve, dim);
-		printf("CAN_PLACE = %d\n",ft_can_place(tab[j], dim, solve));
 		while (j >= 0 && ft_can_place(tab[j], dim, solve) == 0)
 		{
-			ft_putendl("======while_comb_tetra=====");
-			printf("======= J === %d =======\n",j);
-			ft_display_maill(tab[j], dim);
-			printf("REMOVE \n");
 			if (tab[j]->placer != 0)
-				remove_last_maill(&tab[j],dim,&solve); // fonction
-			print_grille(solve, dim);
-			printf("CAN_MOVE_ON = %d\n",can_move_on(tab[j],dim,solve));
+				remove_last_maill(&tab[j],dim,solve);
 			if (move_on(tab[j],dim, solve) == 1)
 			{
-				solve = put_next_maill(&tab[j], dim,&solve);
-				print_grille(solve, dim);
-				return (new_dim);
+				solve = put_next_maill(&tab[j], dim,solve);
+				return (dim);
 			}
-/*			if ((can_move_on(tab[j],dim,solve) == 1))
-			{
-				move_on(tab[j],dim,solve);
-				ft_display_maill(tab[j], dim);
-				if (ft_can_place(tab[j],dim,solve) == 1)
-				{
-					ft_putendl("PUT\n");
-					solve = put_next_maill(&tab[j], dim,&solve);
-					print_grille(solve, dim);
-					break ;
-				}
-*/
 			else
 				j--;
 		}
-//	printlist(tab, 3, ligne);
-		printf("====J=%d======\n",j);
 		if (j < 0)
 		{
-			new_dim++;
-			printf("new_dim = [%d] \n", new_dim);
-			return (new_dim) ;
+			dim++;
+			return (dim) ;
 		}
-		ft_display_maill(tab[j], dim);
-		printf("t'es la \n");
 	}
-
-		ft_display_maill(tab[i], dim);
-		return (new_dim);
+		return (dim);
 }
 
 char		**start_solve(t_tet **tab, int ligne, int *dim)
@@ -134,72 +96,56 @@ char		**start_solve(t_tet **tab, int ligne, int *dim)
 	i = 0;
 	nbr_tetra = ligne / 5;
 	solve = grille_vide(*dim);
-	while (i <= nbr_tetra ) // check_place != 1 && i <= nbr_tetra pout le dernier
+	while (i <= nbr_tetra)
 	{
-		printf("----- num piece = %d ----- \n",i);
-		ft_display_maill(tab[i], new_dim);
-//		printf("result !! = %d \n", ft_solve(tab[i], dim, solve));
-		if (ft_can_place(tab[i],new_dim,solve) == 1 && tab[i]->placer == 0)
+		if (tab[i]->placer == 0)
 		{
-			printf("wesh\n");
-			solve = put_next_maill(&tab[i],new_dim,&solve);
-			print_grille(solve, new_dim);
-			i++;
-		}
-		else if (ft_can_place(tab[i],new_dim,solve) == 0 && tab[i]->placer == 0)
-		{
-			if(ft_solve(tab[i], new_dim, solve) == 1)
+			if (ft_solve(tab[i], new_dim, solve) == 1)
+				solve = put_next_maill(&tab[i++],new_dim,solve);
+			else if (ft_solve(tab[i], new_dim, solve) == 0 && i > 0)
 			{
-				printf("-----tadam-----\n");
-				solve = put_next_maill(&tab[i],new_dim,&solve);
-				i++;
-			}
-			else if(ft_solve(tab[i], new_dim, solve) == 0 && i > 0)
-			{
-				print_grille(solve, new_dim);
-				ft_putendl("-------avant------");
-				//remove_last_maill(&tab[i-1],dim,&solve); // fonction
-				//move_on(tab[i-1],dim,solve);// fonction
-				
-				printf("t'es la \n");
 				new_dim = comb_tetra(tab, i,new_dim, solve);
 				if (new_dim != *dim)
 				{
-					printf("NEW_GRILLE\n");
 					solve = grille_vide(new_dim);
 					remove_all_maill(tab,nbr_tetra, solve, *dim);
 				}
 				i = 0;
 				*dim = new_dim;
-//				break ; 
-				//return (start_solve(tab, ligne));
 			}
 		}
 		else if (tab[i]->placer == 1)
-				i++;
-		print_grille(solve, new_dim);
-//	printf("----- nbr_tetra = %d ----- \n",nbr_tetra);
+			i++;
 	}
-	*dim = new_dim;
 	return (solve);
 }
+/*
+void	free_and_del(void	***tab)
+{
+	int i;
 
+	i = 0;
+	while (tab[i])
+
+}
+*/
 int main(int ac, char **av)
 {
 	char **pos;
 	t_tet **tab;
 	char **solve;
 	int ligne = 0;
-	int dim = 3;
+	int dim = 1;
 
-	pos = malloc(5550000);
 	ligne = read_main(&pos,av);
+	if (ligne == 0)
+		return (0);
 	tab = set_lst_from_file(ligne, pos);
-	printlist(tab, dim, ligne);
-//	return (0);
 	solve = start_solve(tab,ligne, &dim);
-	print_grille(solve, dim);
 	alpha_solve_all(solve, tab, dim, ligne);
 	print_grille(solve, dim);
+/*	while (1)
+		;
+*/
 	return (0);
 }

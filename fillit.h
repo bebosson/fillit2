@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/25 19:55:31 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/26 16:47:45 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ typedef struct		s_tet
 	struct s_tet	*next;
 }					t_tet;
 
-
+void	write_grille_point(int x, int y, int *nb_t, char ***tab);
+void	write_grille_diese(int x, int y, int *nb_t, char ***tab);
 int		coor_neg_test(t_tet *new);
 void		coor_neg(t_tet *new);
 void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne);
-void	alpha_solve(char ***solve, t_tet *bb, int dim);
+void	alpha_solve(char **solve, t_tet *bb, int dim);
 int	set_tetra_pos(t_tet **next, int x, int y, int flag);
 void		set_tetra_pos_origin(t_tet **new);
 int		comb_tetra(t_tet **tab, int i, int dim, char **solve);
@@ -53,12 +54,13 @@ int		move_right(t_tet *bb, int dim, char **grille);
 int		move_down(t_tet **bb, int dim, char **grille);
 void	print_grille(char **pot, int dim);
 void	print_grille_from_pcs(t_tet *new, int dim);
-char	**put_next_maill(t_tet **new, int dim, char ***tab);
-char	**remove_last_maill(t_tet **new, int dim, char ***tab);
+char	**put_next_maill(t_tet **new, int dim, char **tab);
+char	**remove_last_maill(t_tet **new, int dim, char **tab);
 int		ft_solve(t_tet *new, int dim, char **tab);
 int		move_on(t_tet *new, int dim, char **solve); 
 int		ft_can_place(t_tet *new, int dim, char **tab);
 void	printlist(t_tet **lst, int dim, int ligne);
 int		can_move_on(t_tet *new, int dim, char **solve);
 
+void	write_grille_letter(int *nb_t, char *tab, t_tet *bb);
 #endif
