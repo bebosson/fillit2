@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/26 16:19:32 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/27 14:32:08 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_tet	*fix_coor(char **pcs, int nbr_tetra)
 		y_tetra++;
 	}
 	new->letter = 'A' + (char)nbr_tetra;
-	new->next = NULL;
 	return (new);
 }
 

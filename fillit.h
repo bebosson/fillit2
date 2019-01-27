@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/26 16:47:45 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/27 16:00:03 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct		s_tet
 	int				x_y[2];
 	int				placer;
 	char			letter;
-	struct s_tet	*next;
 }					t_tet;
 
 void	write_grille_point(int x, int y, int *nb_t, char ***tab);
@@ -61,6 +60,6 @@ int		move_on(t_tet *new, int dim, char **solve);
 int		ft_can_place(t_tet *new, int dim, char **tab);
 void	printlist(t_tet **lst, int dim, int ligne);
 int		can_move_on(t_tet *new, int dim, char **solve);
-
+int		dim_min(t_tet **tab, int nbr_tetra);
 void	write_grille_letter(int *nb_t, char *tab, t_tet *bb);
 #endif

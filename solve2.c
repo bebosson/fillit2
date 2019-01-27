@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 16:21:52 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/26 16:47:47 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/01/27 16:16:02 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	alpha_solve(char **solve, t_tet *bb, int dim)
 			if (((bb)->x_y[0] == x  && (bb)->x_y[1] == y)
 					&& nb_t == 0)
 				write_grille_letter(&nb_t, &solve[y][x], bb);
-			else if (((bb)->coor[nb_t - 1][0] == x 
+			else if (((bb)->coor[nb_t - 1][0] == x
 						&& (bb)->coor[nb_t - 1][1] == y) && nb_t > 0)
 				write_grille_letter(&nb_t, &solve[y][x], bb);
 		}
@@ -65,4 +65,58 @@ char	**grille_vide(int dim)
 	}
 	pot[i] = 0;
 	return (pot);
+}
+
+int		check_place(t_tet **tab, int ligne)
+{
+	int i;
+	int tetra_place;
+
+	tetra_place = 0;
+	i = -1;
+	while (++i < ligne / 5)
+		if (tab[i]->placer == 1)
+			tetra_place++;
+	if (tetra_place < ligne / 5)
+		return (0);
+	else
+		return (1);
+}
+
+void	remove_all_maill(t_tet **tab, int nbr_tetra, char **solve, int dim)
+{
+	int i;
+
+	i = -1;
+	while (++i < nbr_tetra)
+	{
+		set_tetra_pos_origin(&tab[i]);
+		remove_last_maill(&tab[i],dim,solve);
+	}
+}
+
+
+int		dim_min(t_tet **tab, int ligne)
+{
+	int dim_x;
+	int dim_y;
+	int i;
+	int nbr_tetra;
+
+	nbr_tetra = (ligne > 5) ? ligne / 5 : 1;
+	i = 0;
+	dim_x = 0;
+	dim_y = 0;
+	while (i < nbr_tetra)
+	{
+		if (x_max(tab[i], 3) > dim_x)
+			dim_x = x_max(tab[i], 3);
+		if (y_max(tab[i], 3) > dim_y)
+			dim_y = y_max(tab[i], 3);
+		i++;
+	}
+	if (dim_x > dim_y)
+		return (dim_x);
+	else
+		return (dim_y);
 }

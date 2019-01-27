@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/26 18:15:49 by bebosson          #+#    #+#             */
+/*   Updated: 2019/01/27 16:01:05 by bebosson         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 
@@ -10,8 +22,8 @@ int		read_main(char ***pos, char **av)
 
 	i = 0;
 	fd = open(av[1], O_RDONLY);
-	if (!(*pos =(char**)malloc(sizeof(char*) * 130)))
-		return (0);
+	//if (!(*pos =(char**)malloc(sizeof(char*) * 130)))
+	//	return (0);
 	while (((ret = get_next_line(fd, &line)) > 0))
 	{
 		if (!(ft_check_line(line ,i + 1)))
@@ -107,7 +119,9 @@ char		**start_solve(t_tet **tab, int ligne, int *dim)
 				new_dim = comb_tetra(tab, i,new_dim, solve);
 				if (new_dim != *dim)
 				{
+					//Tmp = solve
 					solve = grille_vide(new_dim);
+					// Free tmp 
 					remove_all_maill(tab,nbr_tetra, solve, *dim);
 				}
 				i = 0;
@@ -119,33 +133,47 @@ char		**start_solve(t_tet **tab, int ligne, int *dim)
 	}
 	return (solve);
 }
-/*
-void	free_and_del(void	***tab)
+
+void	free_and_del_ch(char	**tab)
 {
 	int i;
 
-	i = 0;
-	while (tab[i])
-
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(*tab);
 }
-*/
+
+void	free_and_del_tt(t_tet		**tt)
+{
+	int i;
+
+	i = -1;
+	while (tt[++i])
+		free(tt[i]);
+//	free(*tab);
+}
+
 int main(int ac, char **av)
 {
 	char **pos;
 	t_tet **tab;
 	char **solve;
 	int ligne = 0;
-	int dim = 1;
+	int dim;
 
+	pos = malloc(555000);
 	ligne = read_main(&pos,av);
 	if (ligne == 0)
 		return (0);
 	tab = set_lst_from_file(ligne, pos);
+	dim = dim_min(tab, ligne);
 	solve = start_solve(tab,ligne, &dim);
 	alpha_solve_all(solve, tab, dim, ligne);
+//	free_and_del_tt(tab);
 	print_grille(solve, dim);
-/*	while (1)
-		;
-*/
+//	free_and_del_ch(solve);
+//	while (1)
+//		;
 	return (0);
 }
