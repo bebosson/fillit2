@@ -1,23 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/07 17:44:49 by bebosson          #+#    #+#             */
+/*   Updated: 2019/02/07 19:27:50 by bebosson         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fillit.h"
 
-
-void	free_and_del_ch(char	**tab)
+void	ft_free_tab(char ***tab)
 {
-	int i;
+	char	**tmp;
 
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(*tab);
-}
-
-void	free_and_del_tt(t_tet		**tt)
-{
-	int i;
-
-	i = -1;
-	while (tt[++i])
-		free(tt[i]);
-//	free(*tab);
+	tmp = *tab;
+	while (*tmp)
+		ft_strdel(tmp++);
+	if (*tab)
+		free(*tab);
 }

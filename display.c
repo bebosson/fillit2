@@ -6,12 +6,13 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 13:10:37 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/26 16:19:04 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:06:55 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "fillit.h"
 
-void print_grille(char**pot, int dim)
+void	print_grille(char **pot, int dim)
 {
 	int i;
 

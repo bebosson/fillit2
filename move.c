@@ -6,20 +6,18 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:43:10 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/26 13:52:02 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:05:22 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-
-void		calcul_from_origin(t_tet **bb, int x_mov, int y_mov)
+void	calcul_from_origin(t_tet **bb, int x_mov, int y_mov)
 {
 	int i;
 	int j;
 
 	i = -1;
-
 	(*bb)->x_y[0] += x_mov;
 	(*bb)->x_y[1] += y_mov;
 	while (++i < 3)
@@ -50,7 +48,6 @@ int		move_down_dim_ok(t_tet *bb, int dim)
 	else
 		return (1);
 }
-
 
 int		x_max(t_tet *bb, int dim)
 {

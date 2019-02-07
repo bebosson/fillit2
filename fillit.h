@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:21:00 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/27 16:00:03 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:08:50 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,17 @@ void		set_tetra_pos_origin(t_tet **new);
 int		comb_tetra(t_tet **tab, int i, int dim, char **solve);
 int	ft_check_line(char *line, int i); // return nbr de line ? -> nbr de tetras 
 int	check_diese(char **pcs);
+char		**remove_all_maill(t_tet **tab, int nb_tet, char **solve, int *dim);
+
+char		**start_solve(t_tet **tab, int nbr_tetra, int *dim);
 int	check_tetra(char **pos);
 t_tet	*fix_coor(char **pcs, int nbr_tetra);
 int		check_read(int i,int ret,char ***pos);
-int		read_main(char ***pos, char **av);
+//int		read_main(char ***pos, char **av);
 ///t_tet	*fix_coor2(char **pcs);
+void	ft_free_tab(char ***tab);
+int		ft_dimini(t_tet **tab, int *line);
+void	ft_free_tab(char ***tab);
 t_tet	**set_lst_from_file(int i, char **pos);
 void	ft_display_maill(t_tet *bb, int dim);
 //void	ft_display_lst(t_tet *lst);

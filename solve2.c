@@ -6,7 +6,7 @@
 /*   By: bebosson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 16:21:52 by bebosson          #+#    #+#             */
-/*   Updated: 2019/01/27 16:16:02 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:11:02 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 void	alpha_solve(char **solve, t_tet *bb, int dim)
 {
-
-	int x;
-	int y;
-	int nb_t;
+	int		x;
+	int		y;
+	int		nb_t;
 
 	nb_t = 0;
 	y = -1;
-	while(++y < dim + 1 && bb->placer == 1)
+	while (++y < dim + 1 && bb->placer == 1)
 	{
 		x = -1;
 		while (++x < dim + 1)
 		{
-			if (((bb)->x_y[0] == x  && (bb)->x_y[1] == y)
-					&& nb_t == 0)
+			if (((bb)->x_y[0] == x && (bb)->x_y[1] == y) && nb_t == 0)
 				write_grille_letter(&nb_t, &solve[y][x], bb);
 			else if (((bb)->coor[nb_t - 1][0] == x
 						&& (bb)->coor[nb_t - 1][1] == y) && nb_t > 0)
@@ -41,15 +39,15 @@ void	alpha_solve_all(char **solve, t_tet **bb, int dim, int ligne)
 	int i;
 
 	i = -1;
-	while (++i <= ligne / 5)
+	while (++i <= ligne)
 		alpha_solve(solve, bb[i], dim);
 }
 
 char	**grille_vide(int dim)
 {
-	int i;
-	int j;
-	char **pot;
+	int		i;
+	int		j;
+	char	**pot;
 
 	i = -1;
 	if (!(pot = malloc(sizeof(char *) * (dim + 2))))
@@ -82,19 +80,6 @@ int		check_place(t_tet **tab, int ligne)
 	else
 		return (1);
 }
-
-void	remove_all_maill(t_tet **tab, int nbr_tetra, char **solve, int dim)
-{
-	int i;
-
-	i = -1;
-	while (++i < nbr_tetra)
-	{
-		set_tetra_pos_origin(&tab[i]);
-		remove_last_maill(&tab[i],dim,solve);
-	}
-}
-
 
 int		dim_min(t_tet **tab, int ligne)
 {

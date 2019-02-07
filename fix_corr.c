@@ -6,7 +6,7 @@
 /*   By: artderva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 17:30:05 by artderva          #+#    #+#             */
-/*   Updated: 2019/01/27 14:32:08 by bebosson         ###   ########.fr       */
+/*   Updated: 2019/02/07 00:24:18 by bebosson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int		set_tetra_pos(t_tet **new, int x, int y, int flag)
 			(*new)->x_y[0] = 0;
 			(*new)->x_y[1] = 0;
 			(*new)->placer = 0;
-			coor_neg(*new);
+			while (coor_neg_test(*new) == 1)
+				coor_neg(*new);
 		}
 	}
 	flag++;
